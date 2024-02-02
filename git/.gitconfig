@@ -1,0 +1,17 @@
+[user]
+	name = thieleju
+	email = thiele.juli@gmail.com
+
+[core]
+  editor = nvim
+  eol = lf
+  autocrlf = false
+
+[color]
+  ui = auto
+
+[push]
+  rebase = false
+
+[pull]
+  rebase = false

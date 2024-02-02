@@ -1,0 +1,13 @@
+# Ignore editor-specific files
+*~
+*.swp
+*.swo
+
+# Ignore Neovim swap files
+*.un~
+
+# Ignore user-specific files
+.history
+.node_repl_history
+.zsh_history
+

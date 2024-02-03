@@ -43,10 +43,26 @@ tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 
 # Install Zsh and plugins
-echo "Installing plugins..."
+echo "Installing Zsh and plugins..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Install zsh-autosuggestions if not already installed
+autosuggestions_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [ ! -d "$autosuggestions_dir" ]; then
+  echo "Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$autosuggestions_dir"
+else
+  echo "zsh-autosuggestions is already installed."
+fi
+
+# Install zsh-syntax-highlighting if not already installed
+highlighting_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+if [ ! -d "$highlighting_dir" ]; then
+  echo "Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$highlighting_dir"
+else
+  echo "zsh-syntax-highlighting is already installed."
+fi
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -70,8 +86,26 @@ echo "Installing and configuring Neovim..."
 curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
-sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
-./squashfs-root/AppRun --version
+
+# Check if /usr/bin/nvim exists
+if [ -e /usr/bin/nvim ]; then
+  echo "Symbolic link /usr/bin/nvim already exists."
+else
+  # Create symbolic link only if it doesn't exist
+  sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+  echo "Symbolic link /usr/bin/nvim created."
+fi
+
+# Check if ./squashfs-root directory exists
+if [ -d squashfs-root ]; then
+  sudo mv squashfs-root /  # Move the extracted squashfs-root directory
+  echo "squashfs-root directory moved."
+else
+  echo "Error: ./squashfs-root directory not found."
+fi
+
+# Print Neovim version
+/usr/bin/nvim --version
 echo "Neovim has been successfully installed and configured."
 
 # Cleanup artifacts

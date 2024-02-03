@@ -88,6 +88,7 @@ chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
 
 # Set up Neovim configuration
+git clone https://github.com/thieleju/neovim.git nvim
 mkdir -p ~/.config/nvim/
 cp -r nvim/* ~/.config/nvim/
 

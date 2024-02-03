@@ -2,7 +2,7 @@
 
 This repository contains my personal dotfiles, including configurations for various tools such as Neovim, Tmux, and Zsh.
 
-## Installation
+## Installation (WIP)
 
 To install these dotfiles on a new system, you can use the provided install script located in the `scripts/` directory.
 

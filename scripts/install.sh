@@ -34,7 +34,7 @@ install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Install Git and use the provided .gitconfig
 install_tool "git" "sudo apt-get install -y git"
-cp ../git/.gitconfig ~/
+cp ../git/.gitconfig ~/.gitconfig
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')

@@ -22,6 +22,7 @@ install_tool() {
 }
 
 # Install debian packages
+install_tool "curl" "sudo apt-get install -y curl"
 install_tool "unzip" "sudo apt-get install -y unzip"
 install_tool "ripgrep" "sudo apt-get install -y ripgrep"
 install_tool "fd" "sudo apt-get install -y fd-find"
@@ -32,7 +33,7 @@ install_tool "nvim" "sudo apt-get install -y neovim"
 
 # Install Git and use the provided .gitconfig
 install_tool "git" "sudo apt-get install -y git"
-cp dotfiles/.gitconfig ~/
+cp ../git/.gitconfig ~/
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')

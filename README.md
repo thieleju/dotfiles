@@ -10,7 +10,7 @@ To install these dotfiles on a new system, you can use the provided install scri
 
 
 ```bash
-git clone https://github.com/your-username/dotfiles.github
+git clone git@github.com:thieleju/dotfiles.git
 ```
 
 2. Navigate to the repository and run the install script

@@ -30,6 +30,7 @@ install_tool "clang" "sudo apt-get install -y clang"
 install_tool "git" "sudo apt-get install -y git"
 install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "nvim" "sudo apt-get install -y neovim"
+install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Install Git and use the provided .gitconfig
 install_tool "git" "sudo apt-get install -y git"
@@ -42,7 +43,7 @@ tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 
 # Install Zsh and plugins
-echo "Installing Zsh and plugins..."
+echo "Installing plugins..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting

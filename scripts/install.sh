@@ -45,6 +45,8 @@ sudo install lazygit /usr/local/bin
 # Install Zsh and plugins
 echo "Installing Zsh and plugins..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Copy the .zshrc file
+cp zsh/.zshrc ~/
 
 # Install zsh-autosuggestions if not already installed
 autosuggestions_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

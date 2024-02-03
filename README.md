@@ -10,14 +10,15 @@ To install these dotfiles on a new system, you can use the provided install scri
 
 
 ```bash
-git clone git@github.com:thieleju/dotfiles.git
+git clone https://github.com/thieleju/dotfiles.git
 ```
 
-2. Navigate to the repository and run the install script
+2. Navigate to the repository, make the script executable and run the install script
 
 ```bash
 cd dotfiles
-./scripts/install.sh
+chmod +x ./script/install.sh
+./script/install.sh
 ```
 
 3. Set your gpg signingkey in the .gitconfig or disable commit signing and adjust the user name and email.

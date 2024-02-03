@@ -87,6 +87,10 @@ curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download
 chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
 
+# Set up Neovim configuration
+mkdir -p ~/.config/nvim/
+cp -r nvim/* ~/.config/nvim/
+
 # Check if /usr/bin/nvim exists
 if [ -e /usr/bin/nvim ]; then
   echo "Symbolic link /usr/bin/nvim already exists."

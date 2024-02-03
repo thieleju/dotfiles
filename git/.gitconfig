@@ -1,6 +1,7 @@
 [user]
 	name = thieleju
 	email = thiele.juli@gmail.com
+  signingkey = INSERT_KEY_HERE
 
 [core]
   editor = nvim
@@ -18,3 +19,8 @@
 
 [commit]
   gpgsign = true
+
+[gpg]
+  program = gpg
+
+

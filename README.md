@@ -20,4 +20,6 @@ cd dotfiles
 ./scripts/install.sh
 ```
 
+3. Set your gpg aigningkey in the .gitconfig or disable commit signing
+
 

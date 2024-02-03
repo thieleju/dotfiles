@@ -34,11 +34,26 @@ install_tool "nvim" "sudo apt-get install -y neovim"
 install_tool "git" "sudo apt-get install -y git"
 cp dotfiles/.gitconfig ~/
 
+# Install LazyGit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+
 # Install Zsh and plugins
 echo "Installing Zsh and plugins..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Set Zsh as the default shell
+if [ "$SHELL" != "$(which zsh)" ]; then
+  echo "Setting Zsh as the default shell..."
+  chsh -s "$(which zsh)"
+  echo "Zsh is now the default shell."
+else
+  echo "Zsh is already the default shell."
+fi
 
 # Install Tmux Plugin Manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -61,5 +76,7 @@ echo "Neovim has been successfully installed and configured."
 echo "Cleaning up artifacts..."
 rm -f nvim.appimage  # Remove the Neovim AppImage
 rm -rf squashfs-root  # Remove the extracted squashfs-root directory
+rm -f lazygit.tar.gz  # Remove the LazyGit tarball
+rm -f lazygit         # Remove the extracted LazyGit binary (if any)
 echo "Artifacts have been cleaned up."
 

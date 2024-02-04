@@ -20,7 +20,6 @@ execute_and_log() {
   eval "$command" >> "$LOG_FILE" 2>&1
   
   if [ $? -eq 0 ]; then
-    echo "Command successfully executed."
     echo "Command successfully executed." >> "$LOG_FILE"
   else
     echo "Error executing command."
@@ -60,8 +59,8 @@ install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Copy the .gitconfig file
+echo -e "\nSetting up .gitconfig and installing lazygit..."
 execute_and_log "cp -f '$DOTFILES_DIR/git/.gitconfig' ~/.gitconfig"
-
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 execute_and_log "curl -Lo lazygit.tar.gz 'https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz'"

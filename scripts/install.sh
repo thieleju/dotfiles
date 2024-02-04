@@ -29,7 +29,6 @@ install_tool "fd" "sudo apt-get install -y fd-find"
 install_tool "clang" "sudo apt-get install -y clang"
 install_tool "git" "sudo apt-get install -y git"
 install_tool "tmux" "sudo apt-get install -y tmux"
-install_tool "nvim" "sudo apt-get install -y neovim"
 install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Install Git and use the provided .gitconfig
@@ -42,9 +41,10 @@ curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/lates
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 
-# Install Zsh and plugins
+# Install oh-my-zsh and plugins
 echo "Installing Zsh and plugins..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # Copy the .zshrc file
 cp zsh/.zshrc ~/
 
@@ -112,7 +112,7 @@ else
 fi
 
 # Print Neovim version
-/usr/bin/nvim --version
+nvim --version
 echo "Neovim has been successfully installed and configured."
 
 # Cleanup artifacts

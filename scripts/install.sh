@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get the directory of the script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Function to check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -31,9 +34,8 @@ install_tool "git" "sudo apt-get install -y git"
 install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
 
-# Install Git and use the provided .gitconfig
-install_tool "git" "sudo apt-get install -y git"
-cp git/.gitconfig ~/
+# Copy the .gitconfig file
+cp "$SCRIPT_DIR/git/.gitconfig" ~/
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -43,10 +45,13 @@ sudo install lazygit /usr/local/bin
 
 # Install oh-my-zsh and plugins
 echo "Installing Zsh and plugins..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # Copy the .zshrc file
-cp zsh/.zshrc ~/
+cp "$SCRIPT_DIR/zsh/.zshrc" ~/
+
+# Install powerlevel10k theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # Install zsh-autosuggestions if not already installed
 autosuggestions_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -92,7 +97,7 @@ chmod +x nvim.appimage
 # Set up Neovim configuration
 git clone https://github.com/thieleju/neovim.git nvim
 mkdir -p ~/.config/nvim/
-cp -r nvim/* ~/.config/nvim/
+cp -r "$SCRIPT_DIR/nvim/*" ~/.config/nvim/
 
 # Check if /usr/bin/nvim exists
 if [ -e /usr/bin/nvim ]; then

@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Get the directory of the script
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ../.. && pwd)"
+# Set the dotfiles directory
+DOTFILES_DIR="$HOME/dotfiles"
+
+if [ ! -d "$DOTFILES_DIR" ]; then
+  echo "Error: Dotfiles repository not found. Please make sure it's cloned in $HOME/dotfiles."
+  exit 1
+fi
 
 # Function to check if a command exists
 command_exists() {
@@ -45,7 +50,6 @@ sudo install lazygit /usr/local/bin
 
 # Install oh-my-zsh and plugins
 echo "Installing Zsh and plugins..."
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # Copy the .zshrc file
 cp -f "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
@@ -97,7 +101,7 @@ chmod +x nvim.appimage
 # Set up Neovim configuration
 git clone https://github.com/thieleju/neovim.git nvim
 mkdir -p ~/.config/nvim/
-cp -rf "$DOTFILES_DIR/nvim/*" ~/.config/nvim/
+cp -rf "$DOTFILES_DIR/nvim/"* ~/.config/nvim/
 
 # Check if /usr/bin/nvim exists
 if [ -e /usr/bin/nvim ]; then

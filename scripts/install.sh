@@ -51,8 +51,9 @@ sudo install lazygit /usr/local/bin
 # Install oh-my-zsh and plugins
 echo "Installing Zsh and plugins..."
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-# Copy the .zshrc file
+# Copy the .zshrc and .p10k.zsh files
 cp -f "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
+cp -f "$DOTFILES_DIR/zsh/.p10k.zsh" ~/.p10k.zsh
 
 # Install powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -99,9 +100,9 @@ chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
 
 # Set up Neovim configuration
-git clone https://github.com/thieleju/neovim.git nvim
+git clone https://github.com/thieleju/neovim.git "$DOTFILES_DIR/nvim"
 mkdir -p ~/.config/nvim/
-cp -rf "$DOTFILES_DIR/nvim/"* ~/.config/nvim/
+mv "$DOTFILES_DIR/nvim/"* ~/.config/nvim/
 
 # Check if /usr/bin/nvim exists
 if [ -e /usr/bin/nvim ]; then

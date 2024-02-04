@@ -73,6 +73,8 @@ fi
 
 # Install Tmux Plugin Manager
 echo "Installing Tmux Plugin Manager..."
+mkdir -p ~/.config/tmux
+cp -f "$DOTFILES_DIR/tmux/tmux.conf" ~/.config/tmux/tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ~/.tmux/plugins/tpm/bin/install_plugins
 echo "Tmux Plugin Manager has been successfully installed."
@@ -82,28 +84,15 @@ echo "Installing and configuring Neovim..."
 curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
+./squashfs-root/AppRun --version
+
+sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+sudo mv squashfs-root / 
 
 # Set up Neovim configuration
 git clone https://github.com/thieleju/neovim.git "$DOTFILES_DIR/nvim"
 mkdir -p ~/.config/nvim/
 mv "$DOTFILES_DIR/nvim/"* ~/.config/nvim/
-
-# Check if /usr/bin/nvim exists
-if [ -e /usr/bin/nvim ]; then
-  echo "Symbolic link /usr/bin/nvim already exists."
-else
-  # Create symbolic link only if it doesn't exist
-  sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
-  echo "Symbolic link /usr/bin/nvim created."
-fi
-
-# Check if ./squashfs-root directory exists
-if [ -d squashfs-root ]; then
-  sudo mv squashfs-root /  # Move the extracted squashfs-root directory
-  echo "squashfs-root directory moved."
-else
-  echo "Error: ./squashfs-root directory not found."
-fi
 
 # Print Neovim version
 nvim --version

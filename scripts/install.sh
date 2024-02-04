@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get the directory of the script
-DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ../.. && pwd)"
 
 # Function to check if a command exists
 command_exists() {

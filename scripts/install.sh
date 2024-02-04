@@ -9,34 +9,37 @@ if [ ! -d "$DOTFILES_DIR" ]; then
   exit 1
 fi
 
+# Spinner function
+spinner() {
+  local pid=$1
+  local delay=0.1
+  local spinstr='|/-\'
+  local infotext=$2
+  while ps -p $pid >/dev/null; do
+    local temp=${spinstr#?}
+    printf " [%c] %s" "$spinstr" "$infotext"
+    local spinstr=$temp${spinstr%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+  printf "    \b\b\b\b"
+}
+
 # Function to execute a command and log messages
 execute_and_log() {
   command=$1
   log_message="Executing: $command"
-  echo "$log_message"
+  echo -n "$log_message"
   echo "$log_message" >> "$LOG_FILE"
   
-  # Log the message to a file
-  eval "$command" >> "$LOG_FILE" 2>&1 &  # Run the command in the background
-  local pid=$!
+  # Log the message to a file and show a spinner
+  ($command) > >(while read -r line; do echo -n -e "\r$line"; done) &
+  pid=$!
   
-  # Spinner function
-  spinner() {
-    local delay=0.1
-    local spinstr='|/-\'
-    while ps -p $pid >/dev/null; do
-      local temp=${spinstr#?}
-      printf " [%c] %s" "$spinstr" "$log_message"
-      local spinstr=$temp${spinstr%"$temp"}
-      sleep $delay
-      printf "\b\b\b\b\b\b"
-    done
-    printf "    \b\b\b\b"
-  }
-
-  spinner  # Start the spinner
-  
-  wait $pid  # Wait for the command to finish
+  # Show a spinner while the command is running
+  spinner $pid "Running..."
+  # Wait for the command to finish and get the exit code
+  wait $pid  
   
   if [ $? -eq 0 ]; then
     success_message="Command successfully executed."
@@ -44,7 +47,7 @@ execute_and_log() {
     echo "$success_message" >> "$LOG_FILE"
   else
     error_message="Error executing command."
-    echo "$error_message"
+    echo -e "\r$error_message"
     echo "$error_message" >> "$LOG_FILE"
     exit 1
   fi

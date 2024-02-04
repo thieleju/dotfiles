@@ -16,10 +16,30 @@ execute_and_log() {
   echo "$log_message"
   echo "$log_message" >> "$LOG_FILE"
   
-  # Log the message to a file and execute the command, redirecting stderr to stdout
-  eval "$command" >> "$LOG_FILE" 2>&1
+  # Log the message to a file
+  eval "$command" >> "$LOG_FILE" 2>&1 &  # Run the command in the background
+  local pid=$!
+  
+  # Spinner function
+  spinner() {
+    local delay=0.1
+    local spinstr='|/-\'
+    while ps -p $pid >/dev/null; do
+      local temp=${spinstr#?}
+      printf " [%c] %s" "$spinstr" "$log_message"
+      local spinstr=$temp${spinstr%"$temp"}
+      sleep $delay
+      printf "\b\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
+  }
+
+  spinner  # Start the spinner
+  
+  wait $pid  # Wait for the command to finish
   
   if [ $? -eq 0 ]; then
+    success_message="Command successfully executed."
     echo "$success_message"
     echo "$success_message" >> "$LOG_FILE"
   else
@@ -46,7 +66,6 @@ install_tool() {
   else
     # Install the tool
     execute_and_log "$install_command"
-    echo "$tool_name has been successfully installed."
   fi
 }
 
@@ -70,7 +89,7 @@ execute_and_log "tar xf lazygit.tar.gz lazygit"
 execute_and_log "sudo install lazygit /usr/local/bin"
 
 # Install oh-my-zsh and plugins
-echo "Installing Zsh and plugins..."
+echo -e "\nInstalling Zsh and plugins..."
 execute_and_log "git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh"
 # Copy the .zshrc and .p10k.zsh files
 execute_and_log "cp -f '$DOTFILES_DIR/zsh/.zshrc' ~/.zshrc"
@@ -84,15 +103,14 @@ execute_and_log "git clone https://github.com/zsh-users/zsh-syntax-highlighting.
 execute_and_log "git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm"
 
 # Install Tmux Plugin Manager
-echo "Installing Tmux Plugin Manager..."
+echo -e "\nInstalling Tmux Plugin Manager..."
 execute_and_log "mkdir -p ~/.config/tmux"
 execute_and_log "cp -f '$DOTFILES_DIR/tmux/tmux.conf' ~/.config/tmux/tmux.conf"
 execute_and_log "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
 execute_and_log "~/.tmux/plugins/tpm/bin/install_plugins"
-echo "Tmux Plugin Manager has been successfully installed."
 
 # Install and configure Neovim
-echo "Installing and configuring Neovim..."
+echo -e "\nInstalling and configuring Neovim..."
 execute_and_log "curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
 execute_and_log "chmod +x nvim.appimage"
 execute_and_log "./nvim.appimage --appimage-extract"
@@ -105,21 +123,20 @@ execute_and_log "mv '$DOTFILES_DIR/nvim/'* ~/.config/nvim/"
 
 # Print Neovim version
 execute_and_log "nvim --version"
-echo "Neovim has been successfully installed and configured."
 
 # Cleanup artifacts
-echo "Cleaning up artifacts..."
+echo -e "\nCleaning up artifacts..."
 execute_and_log "rm -f nvim.appimage"  # Remove the Neovim AppImage
 execute_and_log "rm -rf squashfs-root"  # Remove the extracted squashfs-root directory
 execute_and_log "rm -f lazygit.tar.gz"  # Remove the LazyGit tarball
 execute_and_log "rm -f lazygit"         # Remove the extracted LazyGit binary (if any)
-echo "Artifacts have been cleaned up."
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "$(which zsh)" ]; then
   execute_and_log "echo 'Setting Zsh as the default shell...'"
+  echo -e "\nEnter your password to change the default shell."
   execute_and_log "chsh -s '$(which zsh)'"
-  echo "Zsh is now the default shell."
+  echo -e "\nZsh is now the default shell."
 else
-  echo "Zsh is already the default shell."
+  echo -e "\nZsh is already the default shell."
 fi

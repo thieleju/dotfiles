@@ -57,24 +57,10 @@ cp -f "$DOTFILES_DIR/zsh/.p10k.zsh" ~/.p10k.zsh
 
 # Install powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-
-# Install zsh-autosuggestions if not already installed
-autosuggestions_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-if [ ! -d "$autosuggestions_dir" ]; then
-  echo "Installing zsh-autosuggestions..."
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$autosuggestions_dir"
-else
-  echo "zsh-autosuggestions is already installed."
-fi
-
-# Install zsh-syntax-highlighting if not already installed
-highlighting_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-if [ ! -d "$highlighting_dir" ]; then
-  echo "Installing zsh-syntax-highlighting..."
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$highlighting_dir"
-else
-  echo "zsh-syntax-highlighting is already installed."
-fi
+# Install zsh-autosuggestions, zsh-syntax-highlighting, and zsh-nvm plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -86,12 +72,10 @@ else
 fi
 
 # Install Tmux Plugin Manager
-if [ ! -d ~/.tmux/plugins/tpm ]; then
-  echo "Installing Tmux Plugin Manager..."
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  ~/.tmux/plugins/tpm/bin/install_plugins
-  echo "Tmux Plugin Manager has been successfully installed."
-fi
+echo "Installing Tmux Plugin Manager..."
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+~/.tmux/plugins/tpm/bin/install_plugins
+echo "Tmux Plugin Manager has been successfully installed."
 
 # Install and configure Neovim
 echo "Installing and configuring Neovim..."

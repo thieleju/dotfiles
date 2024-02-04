@@ -84,7 +84,6 @@ echo "Installing and configuring Neovim..."
 curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod +x nvim.appimage
 ./nvim.appimage --appimage-extract
-./squashfs-root/AppRun --version
 
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 sudo mv squashfs-root / 

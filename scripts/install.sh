@@ -17,10 +17,9 @@ execute_and_log() {
   echo "$log_message" >> "$LOG_FILE"
   
   # Log the message to a file and execute the command, redirecting stderr to stdout
-  eval "$command" 2>&1
+  eval "$command" >> "$LOG_FILE" 2>&1
   
   if [ $? -eq 0 ]; then
-    success_message="Command successfully executed."
     echo "$success_message"
     echo "$success_message" >> "$LOG_FILE"
   else

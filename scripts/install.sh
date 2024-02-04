@@ -35,7 +35,7 @@ install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Copy the .gitconfig file
-cp "$DOTFILES_DIR/git/.gitconfig" ~/
+cp -f "$DOTFILES_DIR/git/.gitconfig" ~/.gitconfig
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -48,7 +48,7 @@ echo "Installing Zsh and plugins..."
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 # Copy the .zshrc file
-cp "$DOTFILES_DIR/zsh/.zshrc" ~/
+cp -f "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
 
 # Install powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -97,7 +97,7 @@ chmod +x nvim.appimage
 # Set up Neovim configuration
 git clone https://github.com/thieleju/neovim.git nvim
 mkdir -p ~/.config/nvim/
-cp -r "$DOTFILES_DIR/nvim/*" ~/.config/nvim/
+cp -rf "$DOTFILES_DIR/nvim/*" ~/.config/nvim/
 
 # Check if /usr/bin/nvim exists
 if [ -e /usr/bin/nvim ]; then

@@ -2,11 +2,34 @@
 
 # Set the dotfiles directory
 DOTFILES_DIR="$HOME/dotfiles"
+LOG_FILE="$DOTFILES_DIR/dotfiles_install.log"
 
 if [ ! -d "$DOTFILES_DIR" ]; then
   echo "Error: Dotfiles repository not found. Please make sure it's cloned in $HOME/dotfiles."
   exit 1
 fi
+
+# Function to execute a command and log messages
+execute_and_log() {
+  command=$1
+  log_message="Executing: $command"
+  echo "$log_message"
+  echo "$log_message" >> "$LOG_FILE"
+  
+  # Log the message to a file and execute the command, redirecting stderr to stdout
+  eval "$command" 2>&1
+  
+  if [ $? -eq 0 ]; then
+    success_message="Command successfully executed."
+    echo "$success_message"
+    echo "$success_message" >> "$LOG_FILE"
+  else
+    error_message="Error executing command."
+    echo "$error_message"
+    echo "$error_message" >> "$LOG_FILE"
+    exit 1
+  fi
+}
 
 # Function to check if a command exists
 command_exists() {
@@ -23,8 +46,7 @@ install_tool() {
     echo "$tool_name is already installed."
   else
     # Install the tool
-    echo "Installing $tool_name..."
-    $install_command
+    execute_and_log "$install_command"
     echo "$tool_name has been successfully installed."
   fi
 }
@@ -40,68 +62,65 @@ install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
 
 # Copy the .gitconfig file
-cp -f "$DOTFILES_DIR/git/.gitconfig" ~/.gitconfig
+execute_and_log "cp -f '$DOTFILES_DIR/git/.gitconfig' ~/.gitconfig"
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz lazygit
-sudo install lazygit /usr/local/bin
+execute_and_log "curl -Lo lazygit.tar.gz 'https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz'"
+execute_and_log "tar xf lazygit.tar.gz lazygit"
+execute_and_log "sudo install lazygit /usr/local/bin"
 
 # Install oh-my-zsh and plugins
 echo "Installing Zsh and plugins..."
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+execute_and_log "git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh"
 # Copy the .zshrc and .p10k.zsh files
-cp -f "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
-cp -f "$DOTFILES_DIR/zsh/.p10k.zsh" ~/.p10k.zsh
+execute_and_log "cp -f '$DOTFILES_DIR/zsh/.zshrc' ~/.zshrc"
+execute_and_log "cp -f '$DOTFILES_DIR/zsh/.p10k.zsh' ~/.p10k.zsh"
 
 # Install powerlevel10k theme
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+execute_and_log "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 # Install zsh-autosuggestions, zsh-syntax-highlighting, and zsh-nvm plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
-
-# Set Zsh as the default shell
-if [ "$SHELL" != "$(which zsh)" ]; then
-  echo "Setting Zsh as the default shell..."
-  chsh -s "$(which zsh)"
-  echo "Zsh is now the default shell."
-else
-  echo "Zsh is already the default shell."
-fi
+execute_and_log "git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+execute_and_log "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+execute_and_log "git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm"
 
 # Install Tmux Plugin Manager
 echo "Installing Tmux Plugin Manager..."
-mkdir -p ~/.config/tmux
-cp -f "$DOTFILES_DIR/tmux/tmux.conf" ~/.config/tmux/tmux.conf
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-~/.tmux/plugins/tpm/bin/install_plugins
+execute_and_log "mkdir -p ~/.config/tmux"
+execute_and_log "cp -f '$DOTFILES_DIR/tmux/tmux.conf' ~/.config/tmux/tmux.conf"
+execute_and_log "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+execute_and_log "~/.tmux/plugins/tpm/bin/install_plugins"
 echo "Tmux Plugin Manager has been successfully installed."
 
 # Install and configure Neovim
 echo "Installing and configuring Neovim..."
-curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod +x nvim.appimage
-./nvim.appimage --appimage-extract
-
-sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
-sudo mv squashfs-root / 
-
+execute_and_log "curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+execute_and_log "chmod +x nvim.appimage"
+execute_and_log "./nvim.appimage --appimage-extract"
+execute_and_log "sudo ln -s /squashfs-root/AppRun /usr/bin/nvim"
+execute_and_log "sudo mv squashfs-root /"
 # Set up Neovim configuration
-git clone https://github.com/thieleju/neovim.git "$DOTFILES_DIR/nvim"
-mkdir -p ~/.config/nvim/
-mv "$DOTFILES_DIR/nvim/"* ~/.config/nvim/
+execute_and_log "git clone https://github.com/thieleju/neovim.git '$DOTFILES_DIR/nvim'"
+execute_and_log "mkdir -p ~/.config/nvim/"
+execute_and_log "mv '$DOTFILES_DIR/nvim/'* ~/.config/nvim/"
 
 # Print Neovim version
-nvim --version
+execute_and_log "nvim --version"
 echo "Neovim has been successfully installed and configured."
 
 # Cleanup artifacts
 echo "Cleaning up artifacts..."
-rm -f nvim.appimage  # Remove the Neovim AppImage
-rm -rf squashfs-root  # Remove the extracted squashfs-root directory
-rm -f lazygit.tar.gz  # Remove the LazyGit tarball
-rm -f lazygit         # Remove the extracted LazyGit binary (if any)
+execute_and_log "rm -f nvim.appimage"  # Remove the Neovim AppImage
+execute_and_log "rm -rf squashfs-root"  # Remove the extracted squashfs-root directory
+execute_and_log "rm -f lazygit.tar.gz"  # Remove the LazyGit tarball
+execute_and_log "rm -f lazygit"         # Remove the extracted LazyGit binary (if any)
 echo "Artifacts have been cleaned up."
 
+# Set Zsh as the default shell
+if [ "$SHELL" != "$(which zsh)" ]; then
+  execute_and_log "echo 'Setting Zsh as the default shell...'"
+  execute_and_log "chsh -s '$(which zsh)'"
+  echo "Zsh is now the default shell."
+else
+  echo "Zsh is already the default shell."
+fi

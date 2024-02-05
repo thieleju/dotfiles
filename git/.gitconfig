@@ -7,6 +7,7 @@
   editor = nvim
   eol = lf
   autocrlf = false
+  pager = delta
 
 [color]
   ui = auto
@@ -29,4 +30,14 @@
 [gpg]
   program = gpg
 
+[merge]
+  conflictstyle = diff3
 
+[diff]
+  colorMoved = default
+
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true

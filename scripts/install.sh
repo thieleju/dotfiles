@@ -65,24 +65,22 @@ install_tool "clang" "sudo apt-get install -y clang"
 install_tool "git" "sudo apt-get install -y git"
 install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
+install_tool "wget" "sudo apt-get install -y wget"
 
 # Copy the .gitconfig file
 echo -e "\nSetting up .gitconfig and installing lazygit..."
-GITCONFIG_PATH="$HOME/.gitconfig"
-GITCONFIG_BACKUP="$HOME/.gitconfig_backup"
-
-# Backup existing .gitconfig, if any
-if [ -f "$GITCONFIG_PATH" ]; then
-  execute_and_log "mv $GITCONFIG_PATH $GITCONFIG_BACKUP"
-fi
-
-execute_and_log "cp -f '$DOTFILES_DIR/git/.gitconfig' $GITCONFIG_PATH"
+execute_and_log "cp -f '$DOTFILES_DIR/git/.gitconfig' '$HOME/.gitconfig'"
 
 # Install LazyGit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 execute_and_log "curl -Lo lazygit.tar.gz 'https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz'"
 execute_and_log "tar xf lazygit.tar.gz lazygit"
 execute_and_log "sudo install lazygit /usr/local/bin"
+# Install lazygit config and delta
+execute_and_log "cp -f '$DOTFILES_DIR/git/config.yml' ~/.config/lazygit/config.yml"
+execute_and_log "wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb"
+execute_and_log "sudo dpkg -i git-delta_0.16.5_amd64.deb"
+
 
 # Install oh-my-zsh and plugins
 echo -e "\nInstalling Zsh and plugins..."
@@ -111,6 +109,7 @@ remove_and_clone "https://github.com/zsh-users/zsh-autosuggestions" "$ZSH_AUTOSU
 remove_and_clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_SYNTAX_HIGHLIGHTING_DIR"
 remove_and_clone "https://github.com/lukechilds/zsh-nvm" "$ZSH_NVM_DIR"
 
+
 # Install Tmux Plugin Manager
 echo -e "\nInstalling Tmux Plugin Manager..."
 TMUX_CONFIG_DIR=~/.config/tmux
@@ -122,6 +121,7 @@ remove_and_clone "https://github.com/tmux-plugins/tpm" "$TMUX_PLUGIN_MANAGER_DIR
 execute_and_log "mkdir -p $TMUX_CONFIG_DIR"
 execute_and_log "cp -f '$DOTFILES_DIR/tmux/tmux.conf' $TMUX_CONFIG_DIR"
 execute_and_log "$TMUX_PLUGIN_MANAGER_DIR/bin/install_plugins"
+
 
 # Install and configure Neovim
 echo -e "\nInstalling and configuring Neovim..."
@@ -142,17 +142,14 @@ execute_and_log "[ -d $NEOVIM_CONFIG_DIR ] || mkdir -p $NEOVIM_CONFIG_DIR; rm -r
 # Print Neovim version
 execute_and_log "nvim --version"
 
+
 # Cleanup artifacts
 echo -e "\nCleaning up artifacts..."
 execute_and_log "rm -f nvim.appimage"   # Remove the Neovim AppImage
 execute_and_log "rm -rf squashfs-root"  # Remove the extracted squashfs-root directory
 execute_and_log "rm -f lazygit.tar.gz"  # Remove the LazyGit tarball
 execute_and_log "rm -f lazygit"         # Remove the extracted LazyGit binary (if any)
-
-# Restore original .gitconfig if backup exists
-if [ -f "$GITCONFIG_BACKUP" ]; then
-  execute_and_log "mv $GITCONFIG_BACKUP $GITCONFIG_PATH"
-fi
+execute_and_log "rm -f git-delta_0.16.5_amd64.deb"  # Remove the delta deb file
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -163,3 +160,5 @@ if [ "$SHELL" != "$(which zsh)" ]; then
 else
   echo -e "\nZsh is already the default shell."
 fi
+
+echo -e "\nInstallation complete, view the log file at ~/dotfiles/dotfiles_install.log for more details."

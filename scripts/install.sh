@@ -154,8 +154,7 @@ execute_and_log "rm -f git-delta_0.16.5_amd64.deb"  # Remove the delta deb file
 
 # Set Zsh as the default shell
 if [ "$SHELL" != "$(which zsh)" ]; then
-  execute_and_log "echo 'Setting Zsh as the default shell...'"
-  echo -e "\nEnter your password to change the default shell."
+  echo -e "\nEnter your password to change the default shell to zsh."
   execute_and_log "chsh -s '$(which zsh)'"
   echo -e "\nZsh is now the default shell."
 else

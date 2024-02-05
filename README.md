@@ -25,3 +25,9 @@ chmod +x ~/dotfiles/scripts/install.sh
 
 3. Set your gpg signingkey in the .gitconfig or disable commit signing and adjust the user name and email.
 
+
+View the install log:
+```bash
+cat ~/dotfiles/dotfiles_install.log
+
+```

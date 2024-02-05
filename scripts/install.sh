@@ -137,7 +137,7 @@ execute_and_log "./nvim.appimage --appimage-extract"
 execute_and_log "[ -e /usr/bin/nvim ] || (sudo ln -s /squashfs-root/AppRun /usr/bin/nvim && sudo mv squashfs-root /)"
 execute_and_log "mkdir -p $NEOVIM_CONFIG_DIR"
 # Only delete neovim directory if it is not empty
-execute_and_log "[ -d $NEOVIM_CONFIG_DIR ] && rm -rf $NEOVIM_CONFIG_DIR; mv -f $DOTFILES_DIR/nvim/* $NEOVIM_CONFIG_DIR"
+execute_and_log "[ -d $NEOVIM_CONFIG_DIR ] || mkdir -p $NEOVIM_CONFIG_DIR; rm -rf $NEOVIM_CONFIG_DIR/*; mv -f $DOTFILES_DIR/nvim/* $NEOVIM_CONFIG_DIR"
 
 # Print Neovim version
 execute_and_log "nvim --version"

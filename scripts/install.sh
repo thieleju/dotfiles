@@ -133,8 +133,7 @@ execute_and_log "curl -Lo nvim.appimage https://github.com/neovim/neovim/release
 execute_and_log "chmod +x nvim.appimage"
 execute_and_log "./nvim.appimage --appimage-extract"
 # Only create symlink if it doesn't exist
-execute_and_log "[ -e /usr/bin/nvim ] || (sudo ln -s /squashfs-root/AppRun /usr/bin/nvim)"
-execute_and_log "sudo mv squashfs-root /"
+execute_and_log "[ -e /usr/bin/nvim ] || (sudo ln -s /squashfs-root/AppRun /usr/bin/nvim && sudo mv squashfs-root /)"
 execute_and_log "mkdir -p $NEOVIM_CONFIG_DIR"
 execute_and_log "mv $DOTFILES_DIR/nvim/* $NEOVIM_CONFIG_DIR"
 

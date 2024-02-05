@@ -135,7 +135,7 @@ execute_and_log "./nvim.appimage --appimage-extract"
 # Only create symlink if it doesn't exist
 execute_and_log "[ -e /usr/bin/nvim ] || (sudo ln -s /squashfs-root/AppRun /usr/bin/nvim && sudo mv squashfs-root /)"
 execute_and_log "mkdir -p $NEOVIM_CONFIG_DIR"
-execute_and_log "mv $DOTFILES_DIR/nvim/* $NEOVIM_CONFIG_DIR"
+execute_and_log "mv -f $DOTFILES_DIR/nvim/* $NEOVIM_CONFIG_DIR"
 
 # Print Neovim version
 execute_and_log "nvim --version"

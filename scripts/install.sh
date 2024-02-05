@@ -56,6 +56,7 @@ remove_and_clone() {
 }
 
 # Install debian packages
+echo -e "\nInstalling packages..."
 install_tool "curl" "sudo apt-get install -y curl"
 install_tool "unzip" "sudo apt-get install -y unzip"
 install_tool "ripgrep" "sudo apt-get install -y ripgrep"

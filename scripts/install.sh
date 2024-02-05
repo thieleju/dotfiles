@@ -39,7 +39,6 @@ install_tool() {
     echo "$tool_name is already installed."
   else
     execute_and_log "$install_command"
-    echo "$tool_name has been successfully installed."
   fi
 }
 
@@ -77,7 +76,9 @@ execute_and_log "curl -Lo lazygit.tar.gz 'https://github.com/jesseduffield/lazyg
 execute_and_log "tar xf lazygit.tar.gz lazygit"
 execute_and_log "sudo install lazygit /usr/local/bin"
 # Install lazygit config and delta
-execute_and_log "cp -f '$DOTFILES_DIR/git/config.yml' ~/.config/lazygit/config.yml"
+LAZYGIT_CONFIG_DIR=~/.config/lazygit
+execute_and_log "mkdir -p $LAZYGIT_CONFIG_DIR"
+execute_and_log "cp -f '$DOTFILES_DIR/git/config.yml' $LAZYGIT_CONFIG_DIR"
 execute_and_log "wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb"
 execute_and_log "sudo dpkg -i git-delta_0.16.5_amd64.deb"
 

@@ -13,13 +13,8 @@
   ui = auto
 
 [push]
-  rebase = false
   followTags = true
   autoSetupRemote = true
-  default = matching
-
-[pull]
-  rebase = false
 
 [alias]
   adog = log --all --decorate --oneline --graph

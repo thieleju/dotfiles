@@ -82,6 +82,7 @@ plugins=(
   zsh-autosuggestions
   zsh-nvm
   zsh-syntax-highlighting
+  you-should-use
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -109,8 +110,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="nvim ~/.zshrc"
+alias zshconfigsource="source ~/.zshrc"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

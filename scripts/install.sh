@@ -100,15 +100,17 @@ POWERLEVEL10K_DIR=${ZSH_CUSTOM:-$OH_MY_ZSH_DIR/custom}/themes/powerlevel10k
 # Remove existing directory and clone powerlevel10k
 remove_and_clone "https://github.com/romkatv/powerlevel10k.git" "$POWERLEVEL10K_DIR"
 
-# Install zsh-autosuggestions, zsh-syntax-highlighting, and zsh-nvm plugins
+# Install zsh-autosuggestions, zsh-syntax-highlighting, zsh-nvm and you-should-use plugins
 ZSH_AUTOSUGGESTIONS_DIR=$OH_MY_ZSH_DIR/custom/plugins/zsh-autosuggestions
 ZSH_SYNTAX_HIGHLIGHTING_DIR=$OH_MY_ZSH_DIR/custom/plugins/zsh-syntax-highlighting
 ZSH_NVM_DIR=$OH_MY_ZSH_DIR/custom/plugins/zsh-nvm
+ZSH_YOU_SHOULD_USE_DIR=$OH_MY_ZSH_DIR/custom/plugins/you-should-use
 
 # Remove existing directories and clone plugins
 remove_and_clone "https://github.com/zsh-users/zsh-autosuggestions" "$ZSH_AUTOSUGGESTIONS_DIR"
 remove_and_clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_SYNTAX_HIGHLIGHTING_DIR"
 remove_and_clone "https://github.com/lukechilds/zsh-nvm" "$ZSH_NVM_DIR"
+remove_and_clone "https://github.com/MichaelAquilina/zsh-you-should-use.git" "$ZSH_YOU_SHOULD_USE_DIR"
 
 
 # Install Tmux Plugin Manager

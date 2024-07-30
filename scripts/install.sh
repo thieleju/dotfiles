@@ -65,6 +65,7 @@ install_tool "git" "sudo apt-get install -y git"
 install_tool "tmux" "sudo apt-get install -y tmux"
 install_tool "zsh" "sudo apt-get install -y zsh"
 install_tool "wget" "sudo apt-get install -y wget"
+install_tool "fzf" "sudo apt-get install -y fzf"
 
 # Copy the .gitconfig file
 echo -e "\nSetting up .gitconfig and installing lazygit..."
@@ -106,6 +107,8 @@ ZSH_SYNTAX_HIGHLIGHTING_DIR=$OH_MY_ZSH_DIR/custom/plugins/zsh-syntax-highlightin
 ZSH_NVM_DIR=$OH_MY_ZSH_DIR/custom/plugins/zsh-nvm
 ZSH_YOU_SHOULD_USE_DIR=$OH_MY_ZSH_DIR/custom/plugins/you-should-use
 ZSH_HISTORY_SUBSTRING_SEARCH=$OH_MY_ZSH_DIR/custom/plugins/zsh-history-substring-search
+ZSH_FZF_HISTORY_SEARCH=$OH_MY_ZSH_DIR/custom/plugins/zsh-fzf-history-search
+
 
 # Remove existing directories and clone plugins
 remove_and_clone "https://github.com/zsh-users/zsh-autosuggestions" "$ZSH_AUTOSUGGESTIONS_DIR"
@@ -113,6 +116,7 @@ remove_and_clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZS
 remove_and_clone "https://github.com/lukechilds/zsh-nvm" "$ZSH_NVM_DIR"
 remove_and_clone "https://github.com/MichaelAquilina/zsh-you-should-use.git" "$ZSH_YOU_SHOULD_USE_DIR"
 remove_and_clone "https://github.com/zsh-users/zsh-history-substring-search" "$ZSH_HISTORY_SUBSTRING_SEARCH"
+remove_and_clone "https://github.com/joshskidmore/zsh-fzf-history-search" "$ZSH_FZF_HISTORY_SEARCH"
 
 
 # Install Tmux Plugin Manager

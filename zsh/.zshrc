@@ -84,6 +84,7 @@ plugins=(
   zsh-syntax-highlighting
   zsh-history-substring-search
   you-should-use
+  zsh-fzf-history-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -94,6 +95,9 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+
+# zsh-fzf-history-search key bindings
+export ZSH_FZF_HISTORY_SEARCH_BIND='^R'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

@@ -139,7 +139,7 @@ NEOVIM_CONFIG_DIR=~/.config/nvim
 # Remove existing directory and clone Neovim configuration
 remove_and_clone "https://github.com/thieleju/neovim.git" "$DOTFILES_DIR/nvim"
 
-execute_and_log "curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+execute_and_log "curl -Lo nvim.appimage https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage"
 execute_and_log "chmod +x nvim.appimage"
 execute_and_log "./nvim.appimage --appimage-extract"
 # Only create symlink if it doesn't exist

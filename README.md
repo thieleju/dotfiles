@@ -36,6 +36,15 @@ chezmoi update           # Pull and apply latest changes
 chezmoi cd               # Open chezmoi source directory
 ```
 
+## Auto-add files script
+
+> Why tf can't chezmoi do this itself? It's the most basic feature
+
+```bash
+chmod +x auto_add_chezmoi.sh
+./auto_add_chezmoi.sh
+```
+
 ## Notes
 
 - Monitor config in `~/.config/hypr/config/monitor.conf` is hardware-specific

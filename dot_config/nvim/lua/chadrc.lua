@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "decay",
+  theme = "yoru",
   transparency = true,
   hl_override = {
     Comment = { italic = true },

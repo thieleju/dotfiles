@@ -6,7 +6,6 @@ Dotfiles for CachyOS with Hyprland, managed with [chezmoi](https://chezmoi.io).
 
 - **Hyprland** - Window manager config, keybinds, animations, monitor setup
 - **Waybar** - Status bar with custom modules (CPU, GPU, network, spotify)
-- **Nvim** - Neovim config with plugins and LSP setup
 - **Wofi** - Application launcher
 - **Wlogout** - Logout menu
 - **Mako** - Notification daemon

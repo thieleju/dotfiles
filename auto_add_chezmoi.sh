@@ -159,19 +159,21 @@ for i in "${!COMMANDS[@]}"; do
   esac
 done
 
-echo
-printf "%sSummary of planned operations:%s\n" "$BOLD" "$RESET"
-if [ "$updates" -gt 0 ]; then
-  printf "  %sUpdates:%s %s\n" "$GREEN" "$RESET" "$updates"
-fi
-if [ "$forgot" -gt 0 ]; then
-  printf "  %sForgets:%s %s\n" "$YELLOW" "$RESET" "$forgot"
-fi
-if [ "$skipped" -gt 0 ]; then
-  printf "  %sSkipped:%s %s\n" "$BLUE" "$RESET" "$skipped"
-fi
-if [ "$errors" -gt 0 ]; then
-  printf "  %sErrors:%s %s\n" "$RED" "$RESET" "$errors"
+if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
+  echo
+  printf "%sSummary of planned operations:%s\n" "$BOLD" "$RESET"
+  if [ "$updates" -gt 0 ]; then
+    printf "  %sUpdates:%s %s\n" "$GREEN" "$RESET" "$updates"
+  fi
+  if [ "$forgot" -gt 0 ]; then
+    printf "  %sForgets:%s %s\n" "$YELLOW" "$RESET" "$forgot"
+  fi
+  if [ "$skipped" -gt 0 ]; then
+    printf "  %sSkipped:%s %s\n" "$BLUE" "$RESET" "$skipped"
+  fi
+  if [ "$errors" -gt 0 ]; then
+    printf "  %sErrors:%s %s\n" "$RED" "$RESET" "$errors"
+  fi
 fi
 
 if [ ${#COMMANDS[@]} -eq 0 ]; then
@@ -204,19 +206,21 @@ for i in "${!COMMANDS[@]}"; do
   }
 done
 
-echo
-printf "%sFinal Summary:%s\n" "$BOLD" "$RESET"
-if [ "$updates" -gt 0 ]; then
-  printf "  %sUpdates:%s %s\n" "$GREEN" "$RESET" "$updates"
-fi
-if [ "$forgot" -gt 0 ]; then
-  printf "  %sForgets:%s %s\n" "$YELLOW" "$RESET" "$forgot"
-fi
-if [ "$skipped" -gt 0 ]; then
-  printf "  %sSkipped:%s %s\n" "$BLUE" "$RESET" "$skipped"
-fi
-if [ "$errors" -gt 0 ]; then
-  printf "  %sErrors:%s %s\n" "$RED" "$RESET" "$errors"
+if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
+  echo
+  printf "%sFinal Summary:%s\n" "$BOLD" "$RESET"
+  if [ "$updates" -gt 0 ]; then
+    printf "  %sUpdates:%s %s\n" "$GREEN" "$RESET" "$updates"
+  fi
+  if [ "$forgot" -gt 0 ]; then
+    printf "  %sForgets:%s %s\n" "$YELLOW" "$RESET" "$forgot"
+  fi
+  if [ "$skipped" -gt 0 ]; then
+    printf "  %sSkipped:%s %s\n" "$BLUE" "$RESET" "$skipped"
+  fi
+  if [ "$errors" -gt 0 ]; then
+    printf "  %sErrors:%s %s\n" "$RED" "$RESET" "$errors"
+  fi
 fi
 
 echo "Done!"

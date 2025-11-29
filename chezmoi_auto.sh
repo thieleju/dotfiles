@@ -125,8 +125,19 @@ while IFS='|' read -r src dst file; do
     target="$HOME/$file"
   fi
 
-  # Skip if the target doesn't exist, to avoid chezmoi lstat errors
+  # Skip if the target doesn't exist, to avoid chezmoi lstat errors.
+  # If the destination is modified (dst=M) but the file doesn't exist locally,
+  # it likely means the changes are in source — plan a 'chezmoi apply' to restore.
   if [ ! -e "$target" ]; then
+    if [ "$dst" = "M" ] || [ "$src" = "M" ]; then
+      printf "  %sAction:%s Apply (restore): %s\n" "$BLUE" "$RESET" "$file"
+      cmd=("chezmoi" "apply" "--" "$file")
+      COMMANDS+=("${cmd[*]}")
+      ACTIONS+=("apply")
+      TARGETS+=("$target")
+      updates=$((updates + 1))
+      continue
+    fi
     printf "  %sWarning:%s target does not exist, skipping: %s\n" "$YELLOW" "$RESET" "$target"
     skipped=$((skipped + 1))
     continue
@@ -143,13 +154,16 @@ done <<< "$files_to_add"
 # Print summary of planned actions
 echo
 printf "%sPlanned actions:%s\n" "$BOLD" "$RESET"
-if [ "${#COMMANDS[@]:-0}" -gt 0 ]; then
+  if declare -p COMMANDS >/dev/null 2>&1 && [ ${#COMMANDS[@]} -gt 0 ]; then
   for i in "${!COMMANDS[@]}"; do
   act=${ACTIONS[$i]}
   cmd=${COMMANDS[$i]}
   case "$act" in
     update)
       printf "  %s+ update%s %s\n" "$GREEN" "$RESET" "${TARGETS[$i]}"
+      ;;
+    apply)
+      printf "  %s~ apply%s %s\n" "$BLUE" "$RESET" "${TARGETS[$i]}"
       ;;
     forget)
       printf "  %s- forget%s %s\n" "$YELLOW" "$RESET" "${TARGETS[$i]}"
@@ -178,7 +192,7 @@ if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
   fi
 fi
 
-if [ "${#COMMANDS[@]:-0}" -eq 0 ]; then
+if ! declare -p COMMANDS >/dev/null 2>&1 || [ ${#COMMANDS[@]} -eq 0 ]; then
   echo "No operations to perform. Exiting."
   exit 0
 fi
@@ -197,7 +211,7 @@ if [ "$QUICK_YES" -eq 0 ]; then
 fi
 
 # Execute planned commands
-if [ "${#COMMANDS[@]:-0}" -gt 0 ]; then
+if declare -p COMMANDS >/dev/null 2>&1 && [ ${#COMMANDS[@]} -gt 0 ]; then
   for i in "${!COMMANDS[@]}"; do
   act=${ACTIONS[$i]}
   cmd_str=${COMMANDS[$i]}

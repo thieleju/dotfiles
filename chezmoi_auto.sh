@@ -143,7 +143,8 @@ done <<< "$files_to_add"
 # Print summary of planned actions
 echo
 printf "%sPlanned actions:%s\n" "$BOLD" "$RESET"
-for i in "${!COMMANDS[@]}"; do
+if [ "${#COMMANDS[@]:-0}" -gt 0 ]; then
+  for i in "${!COMMANDS[@]}"; do
   act=${ACTIONS[$i]}
   cmd=${COMMANDS[$i]}
   case "$act" in
@@ -157,7 +158,8 @@ for i in "${!COMMANDS[@]}"; do
       printf "  %s? unknown%s %s\n" "$BLUE" "$RESET" "${cmd#* }"
       ;;
   esac
-done
+  done
+fi
 
 if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
   echo
@@ -176,7 +178,7 @@ if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
   fi
 fi
 
-if [ ${#COMMANDS[@]} -eq 0 ]; then
+if [ "${#COMMANDS[@]:-0}" -eq 0 ]; then
   echo "No operations to perform. Exiting."
   exit 0
 fi
@@ -195,7 +197,8 @@ if [ "$QUICK_YES" -eq 0 ]; then
 fi
 
 # Execute planned commands
-for i in "${!COMMANDS[@]}"; do
+if [ "${#COMMANDS[@]:-0}" -gt 0 ]; then
+  for i in "${!COMMANDS[@]}"; do
   act=${ACTIONS[$i]}
   cmd_str=${COMMANDS[$i]}
   printf "%sExecuting:%s %s\n" "$BOLD" "$RESET" "${cmd_str#* }"
@@ -204,7 +207,8 @@ for i in "${!COMMANDS[@]}"; do
     printf "%sError:%s command failed: %s\n" "$RED" "$RESET" "$cmd_str"
     errors=$((errors + 1))
   }
-done
+  done
+fi
 
 if [ "$skipped" -gt 0 ] || [ "$errors" -gt 0 ]; then
   echo

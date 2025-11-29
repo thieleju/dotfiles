@@ -36,13 +36,11 @@ chezmoi update           # Pull and apply latest changes
 chezmoi cd               # Open chezmoi source directory
 ```
 
-## Auto-add files script
-
-> Why tf can't chezmoi do this itself? It's the most basic feature
+## Chezmoi script to auto update
 
 ```bash
-chmod +x auto_add_chezmoi.sh
-./auto_add_chezmoi.sh
+chmod +x chezmoi_auto.sh
+./chezmoi_auto.sh
 ```
 
 ## Notes

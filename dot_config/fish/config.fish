@@ -2,6 +2,12 @@ source /usr/share/cachyos-fish-config/cachyos-config.fish
 
 export BROWSER=nemo
 
+# pyenv initialization
+set -x PATH $HOME/.pyenv/bin $PATH
+status --is-interactive; and source (pyenv init --path | psub)
+status --is-interactive; and source (pyenv init - | psub)
+status --is-interactive; and source (pyenv virtualenv-init - | psub)
+
 # overwrite greeting
 function fish_greeting
 	# Show fastfetch stats but disable the ASCII/logo and prefix each line with a tab + space

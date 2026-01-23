@@ -2,21 +2,6 @@
 
 Dotfiles for CachyOS with Hyprland, managed with [chezmoi](https://chezmoi.io).
 
-## What's included
-
-- **Hyprland** - Window manager config, keybinds, animations, monitor setup
-- **Waybar** - Status bar with custom modules (CPU, GPU, network, spotify)
-- **Wofi** - Application launcher
-- **Wlogout** - Logout menu
-- **Mako** - Notification daemon
-- **Swaylock** - Lock screen
-- **Hyprlock** - Hyprland lock screen
-- **Alacritty** - Terminal emulator
-- **Fish** - Shell config with tide prompt
-- **btop** - System monitor
-- **micro** - Text editor with syntax highlighting
-- **GTK/Qt theming** - Consistent dark theme (Nord)
-
 ## Installation
 
 ```bash
@@ -42,8 +27,3 @@ chezmoi cd               # Open chezmoi source directory
 chmod +x chezmoi_auto.sh
 ./chezmoi_auto.sh
 ```
-
-## Notes
-
-- Monitor config in `~/.config/hypr/config/monitor.conf` is hardware-specific
-- Wallpaper path in autostart requires `~/Pictures/wallpapers/legacy_small.png`

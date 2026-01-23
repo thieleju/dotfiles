@@ -8,6 +8,8 @@ x-scheme-handler/unknown=brave-browser.desktop
 inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
 x-scheme-handler/discord=vesktop.desktop
+text/css=code.desktop
 
 [Added Associations]
 text/plain=vim.desktop;
+text/css=code.desktop;

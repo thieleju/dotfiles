@@ -1,0 +1,42 @@
+[user]
+	name = Julian
+  email = 41455100+thieleju@users.noreply.github.com
+	signingkey = 9F2D602DDA6992FFC41CE070813864588C4ADAD7
+
+[core]
+  editor = nvim
+  eol = lf
+  autocrlf = false
+  pager = delta
+
+[color]
+  ui = auto
+
+[push]
+  followTags = true
+  autoSetupRemote = true
+
+[alias]
+  adog = log --all --decorate --oneline --graph
+
+[commit]
+	gpgSign = true
+
+[gpg]
+  program = gpg
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true
+[credential]
+	helper = cache
+[init]
+	defaultBranch = main

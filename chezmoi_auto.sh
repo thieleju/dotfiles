@@ -49,20 +49,20 @@ status_output=$(chezmoi status)
 # character and print the path starting in column 4 (so spaces in filenames are kept).
 files_to_add=$(printf "%s\n" "$status_output" | awk '{s=substr($0,1,1); d=substr($0,2,1); if(s ~ /[AM?]/ || d ~ /[AM?]/) printf "%s|%s|%s\n", s, d, substr($0,4)}')
 
-# If no changes are found, print a message and exit the script
-if [ -z "$(printf '%s' "$files_to_add")" ]; then
-  echo "No changes found to add."
-  exit 0
-fi
-
 # Iterate lines safely (handles filenames with spaces)
 updates=0
 skipped=0
 errors=0
 forgot=0
-declare -a COMMANDS
-declare -a ACTIONS
-declare -a TARGETS
+declare -a COMMANDS=()
+declare -a ACTIONS=()
+declare -a TARGETS=()
+
+# If no changes are found, print a message and exit the script
+if [ -z "$(printf '%s' "$files_to_add")" ]; then
+  echo "No changes found to add."
+  exit 0
+fi
 
 # Setup colors if output is a TTY
 if [ -t 1 ]; then

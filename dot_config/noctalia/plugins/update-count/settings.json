@@ -4,5 +4,5 @@
   "currentIconName": "world-download",
   "hideOnZero": false,
   "customCmdGetNumUpdates": "",
-  "customCmdDoSystemUpdate": "sudo pacman -Syu --noconfirm"
+  "customCmdDoSystemUpdate": "yay -Syu --noconfirm"
 }

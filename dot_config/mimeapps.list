@@ -1,5 +1,5 @@
 [Default Applications]
-text/plain=vim.desktop
+text/plain=userapp-code-LF70J3.desktop
 text/html=brave-browser.desktop
 x-scheme-handler/http=brave-browser.desktop
 x-scheme-handler/https=brave-browser.desktop
@@ -9,7 +9,11 @@ inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
 x-scheme-handler/discord=vesktop.desktop
 text/css=code.desktop
+text/x-lua=userapp-code-LF70J3.desktop
+video/mp4=brave-browser.desktop
 
 [Added Associations]
-text/plain=vim.desktop;
+text/plain=vim.desktop;userapp-code-LF70J3.desktop;
 text/css=code.desktop;
+text/x-lua=userapp-code-LF70J3.desktop;
+video/mp4=brave-browser.desktop;

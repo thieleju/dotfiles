@@ -11,9 +11,21 @@ x-scheme-handler/discord=vesktop.desktop
 text/css=code.desktop
 text/x-lua=userapp-code-LF70J3.desktop
 video/mp4=brave-browser.desktop
+x-scheme-handler/discord-1221314350216646828=discord-1221314350216646828.desktop
+x-scheme-handler/discord-712465656758665259=discord-712465656758665259.desktop
+text/markdown=userapp-code-LF70J3.desktop
+video/matroska=vlc.desktop
+application/x-extension-burp=install4j_1up3cq0-BurpSuite.desktop
+x-scheme-handler/burp=install4j_1up3cq0-BurpSuite.desktop
+application/json=userapp-code-LF70J3.desktop
+audio/mpeg=vlc.desktop
 
 [Added Associations]
 text/plain=vim.desktop;userapp-code-LF70J3.desktop;
 text/css=code.desktop;
 text/x-lua=userapp-code-LF70J3.desktop;
 video/mp4=brave-browser.desktop;
+text/markdown=userapp-code-LF70J3.desktop;
+video/matroska=vlc.desktop;
+application/json=userapp-code-LF70J3.desktop;
+audio/mpeg=audacity.desktop;vlc.desktop;

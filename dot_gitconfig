@@ -7,7 +7,7 @@
   editor = nvim
   eol = lf
   autocrlf = false
-  pager = delta
+	pager = less
 
 [color]
   ui = auto

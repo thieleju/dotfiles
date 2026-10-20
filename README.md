@@ -5,8 +5,8 @@ Dotfiles for CachyOS with Hyprland, managed with [chezmoi](https://chezmoi.io).
 ## Installation
 
 ```bash
-# Install chezmoi and apply dotfiles
-chezmoi init https://github.com/thieleju/dotfiles.git
+# clone repo in ~/git/dotfiles
+chezmoi init --source ~/git/dotfiles git@github.com:thieleju/dotfiles.git
 chezmoi apply
 ```
 

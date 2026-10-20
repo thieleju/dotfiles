@@ -1,0 +1,275 @@
+config_version = 15
+
+[audio]
+enable_notification_sounds = false
+enable_screenshot_sounds = false
+
+[bar.default]
+center = [ "weather", "date", "clock" ]
+end = [ "privacy", "widget", "tray", "group:g4", "bluetooth", "notifications", "network", "bar" ]
+show_tooltip = false
+start = [ "group:g3", "group:g2" ]
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 0.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "network_rx", "network_tx" ]
+    opacity = 0.0
+    padding = 10.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g3"
+    members = [ "workspaces", "cpu_usage", "cpu_temp", "gpu_temp", "gpu_usage", "ram_usage" ]
+    opacity = 0.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g4"
+    members = [ "audio_visualizer", "volume" ]
+    opacity = 0.0
+    padding = 6.0
+
+[control_center.calendar]
+show_events_card = false
+
+[desktop_widgets]
+enabled = false
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-3", "lockscreen-login-box@DP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-3"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[notification]
+filter_order = [ "filter", "filter-2" ]
+layer = "overlay"
+
+    [notification.filter.filter]
+    allow_permanent = false
+    allowed_urgencies = [ "low" ]
+    bypass_dnd = false
+    enabled = true
+    match_content = "screenshot captured"
+    play_sound = false
+    save_history = false
+    show_toast = false
+
+    [notification.filter.filter-2]
+    allow_permanent = false
+    allowed_urgencies = [ "critical" ]
+    bypass_dnd = false
+    enabled = true
+    match = "brave"
+    play_sound = false
+    save_history = false
+    show_toast = false
+
+[plugins]
+enabled = [ "yuuto/arch-updater", "raycursive/discord-voice" ]
+
+[shell]
+button_borders = false
+card_borders = false
+font_family = "Noto Sans"
+input_borders = false
+lang = "en"
+panel_anchor_bar = "default"
+polkit_agent = true
+popup_borders = false
+telemetry_enabled = true
+time_format = "{:%H:%M:%S}"
+
+    [shell.panel]
+    control_center_placement = "attached"
+    control_center_position = "center"
+    open_near_click_control_center = true
+    session_placement = "floating"
+    session_position = "center"
+    wallpaper_placement = "floating"
+    wallpaper_position = "center"
+
+    [shell.screen_corners]
+    enabled = true
+
+[system.monitor]
+cpu_temp_activity_threshold = 70
+
+[theme]
+wallpaper_scheme = "m3-fruit-salad"
+
+    [theme.templates]
+    builtin_ids = [ "btop", "gtk3", "hyprland", "kcolorscheme", "kitty", "qt" ]
+    community_ids = [ "brave", "vscode", "steam", "obs", "fzf", "lazygit" ]
+
+[wallpaper]
+directory = "/home/julian/Pictures/Wallpapers"
+
+    [wallpaper.default]
+    path = "/home/julian/Pictures/Wallpapers/bunnies.jpg"
+
+    [wallpaper.last]
+    path = "/home/julian/Pictures/Wallpapers/bunnies.jpg"
+
+[widget.audio_visualizer]
+show_when_idle = true
+
+    [widget.audio_visualizer.actions]
+    left = "panel-toggle control-center audio"
+
+[widget.bar]
+type = "raycursive/discord-voice:bar"
+
+    [widget.bar.actions]
+    left = "panel-toggle raycursive/discord-voice:panel"
+
+[widget.clock]
+anchor = true
+format = "{:%H:%M:%S}"
+
+[widget.cpu_temp]
+label_min_width = 20
+
+[widget.cpu_usage]
+label_min_width = 20
+
+[widget.gpu_temp]
+label_min_width = 20
+
+[widget.gpu_usage]
+label_min_width = 20
+
+[widget.network]
+show_vpn_label = true
+vpn_status = "both"
+
+[widget.network_rx]
+label_min_width = 35
+network_speed_compact = true
+
+[widget.network_tx]
+label_min_width = 35
+network_speed_compact = true
+
+[widget.privacy]
+interactive = false
+
+[widget.ram_usage]
+label_min_width = 20
+
+[widget.tray]
+drawer = true
+
+[widget.weather]
+show_condition = false
+
+[widget.widget]
+type = "yuuto/arch-updater:widget"
+
+[widget.workspaces]
+focused_output_only = true
